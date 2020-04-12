@@ -29,7 +29,6 @@ public class CustomMultiThreadingController {
         for (int i=0;i<10;i++){
             customMultiThreadingService.executeAysncTask1(i);
             customMultiThreadingService.executeAsyncTask2(i);
-            customMultiThreadingService.executeAsyncTask2(i+1);
         }
 
         return "success";
