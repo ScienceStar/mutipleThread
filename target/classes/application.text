@@ -4,3 +4,37 @@ docker inspect f3d5ce7f075a 48e7f323344a 8a681e3a05c1 a3d5e1ace308 2ec0cce776a5 
 /usr/local/bin/redis-cli -h 47.107.97.120 -p 6382 -a 123456 CLUSTER REPLICATE d680e50b606734241be7f321c00d1c0c431e9886
 /usr/local/bin/redis-cli -h 47.107.97.120 -p 6383 -a 123456 CLUSTER REPLICATE 7929d191e551f3783c3c213589d8c65a24f35000
 /usr/local/bin/redis-cli -h 47.107.97.120 -p 6384 -a 123456 CLUSTER REPLICATE ebbf77a0087ab0b1dc510fbb72081c541c132611
+
+
+#!/bin
+#kill tomcat pid
+#有错的shell
+
+pidlist=`ps -ef|grep apache-tomcat-8.5.51|grep -v "grep"|awk '{print $2}'`
+function stop(){
+if [ "$pidlist" == "" ]
+  then
+    echo "----apache-tomcat-8.5.51 已经关闭----"
+
+ else
+    echo "apache-tomcat-8.5.51 进程号 :$pidlist"
+    kill -9 $pidlist
+    echo "KILL $pidlist:"
+fi
+}
+
+stop
+pidlist2=`ps -ef|grep apache-tomcat-8.5.51|grep -v "grep"|awk '{print $2}'`
+if [ "$pidlist2" == "" ]
+    then
+       echo "----关闭apache-tomcat-8.5.51成功----"
+else
+    echo "----关闭apache-tomcat-8.5.51失败----"
+fi
+
+rm -rf /opt/apache-tomcat-8.5.51/webapps/ROOT*
+cp -r /var/lib/jenkins/workspace/springboot-seckill/target/springboot-seckill.war  /opt/apache-tomcat-8.5.51/webapps
+sleep 3s
+mv /opt/apache-tomcat-8.5.51/webapps/springboot-seckill.war  /opt/apache-tomcat-8.5.51/webapps/ROOT.war
+cd /opt/apache-tomcat-8.5.51/bin
+./startup.sh

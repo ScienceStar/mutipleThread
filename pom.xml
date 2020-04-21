@@ -39,6 +39,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.2.6.RELEASE</version>
+            <!--&lt;!&ndash; 去除内嵌tomcat &ndash;&gt;
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>-->
             <scope>compile</scope>
         </dependency>
     </dependencies>
