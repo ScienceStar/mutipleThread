@@ -25,7 +25,6 @@ public class CustomAsyncScheduler {
             synchronized (CustomAsyncScheduler.class) {
                 if (instance == null) {
                     instance = new CustomAsyncScheduler();
-
                     BlockingQueue queue = new LinkedBlockingQueue();
                     chnlBackendQueryPool = new ThreadPoolExecutor(50, 100, 30, TimeUnit.SECONDS, queue);
                     chnlBackendQueryPool.allowCoreThreadTimeOut(true);

@@ -53,11 +53,8 @@ public class CustomMultipleThreadingService {
      * @param i
      */
     public void executeAsyncTask3(Integer i){
-        CustomAsyncScheduler.getInstance().getChnlBackendQueryPool().execute(new Runnable() {
-            @Override
-            public void run() {
-                logger.info("CustomMultiThreadingService ==> executeAsyncTask3 method: 执行异步任务{} ", i);
-            }
+        CustomAsyncScheduler.getInstance().getChnlBackendQueryPool().execute(()->{
+            logger.info("CustomMultiThreadingService ==> executeAsyncTask3 method: 执行异步任务{} ", i);
         });
 
     }
