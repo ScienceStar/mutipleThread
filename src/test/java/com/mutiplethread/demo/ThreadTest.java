@@ -21,8 +21,6 @@ public class ThreadTest {
         System.out.println("main");
         String[] userInfos = {"tom","jack","mike"};
         List<String> userCollection = Arrays.asList(userInfos);
-        userCollection.forEach(s -> {
-            System.out.println(s);
-        });
+        userCollection.forEach(System.out::println);
     }
 }
