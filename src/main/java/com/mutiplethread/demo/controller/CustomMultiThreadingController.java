@@ -33,7 +33,6 @@ public class CustomMultiThreadingController {
             customMultiThreadingService.executeAsyncTask2(i);
             customMultiThreadingService.executeAsyncTask2(i+1);
         }
-
         return "success";
     }
 

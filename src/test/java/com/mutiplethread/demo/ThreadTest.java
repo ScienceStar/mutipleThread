@@ -1,11 +1,15 @@
 package com.mutiplethread.demo;
 
+import com.mutiplethread.demo.bean.Person;
 import com.mutiplethread.demo.thread.ExtrualThread;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +47,37 @@ public class ThreadTest {
                     e.printStackTrace();
                 }
             });
+        }
+    }
+
+    @Test
+    public void hashTableTest(){
+        Map<String, Person> map = new Hashtable<String, Person>();
+        Person person1 = new Person("jack",21);
+        Person person2 = new Person("tom",22);
+
+        map.put("jack",person1);
+        map.put("tom",person2);
+
+        for(String key:map.keySet()){
+            Person p = map.get(key);
+            System.out.println(p.getPersonName()+"  "+p.getPersonAge());
+        }
+    }
+
+    @Test
+    public void currentHashMapTest(){
+        Map<String,Person> map = new ConcurrentHashMap<String, Person>();
+
+        Person person1 = new Person("jack",21);
+        Person person2 = new Person("tom",22);
+
+        map.put("jack",person1);
+        map.put("tom",person2);
+
+        for(String key:map.keySet()){
+            Person p = map.get(key);
+            System.out.println(p.getPersonName()+"  "+p.getPersonAge());
         }
     }
 }
