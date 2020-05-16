@@ -5,10 +5,7 @@ import com.mutiplethread.demo.thread.ExtrualThread;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -47,6 +44,40 @@ public class ThreadTest {
                     e.printStackTrace();
                 }
             });
+        }
+    }
+
+    @Test
+    public void hashSetTest(){
+        Set<Person> personSet = new HashSet<Person>();
+
+        Person person1 = new Person("jack",21);
+        Person person2 = new Person("tom",22);
+
+        List<Person> personList = new ArrayList<Person>();
+        personList.add(person1);
+        personList.add(person2);
+
+        personSet.addAll(personList);
+
+        for(Person person : personSet){
+            System.out.println(person.getPersonName()+"   "+person.getPersonAge());
+        }
+    }
+
+    @Test
+    public void hashMapTest(){
+        Map<String,Person> map = new HashMap<String, Person>();
+
+        Person person1 = new Person("jack",21);
+        Person person2 = new Person("tom",22);
+
+        map.put("jack",person1);
+        map.put("tom",person2);
+
+        for(String key:map.keySet()){
+            Person p = map.get(key);
+            System.out.println(p.getPersonName()+"  "+p.getPersonAge());
         }
     }
 
