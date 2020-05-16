@@ -1,5 +1,7 @@
 package com.mutiplethread.demo;
 
+import com.google.common.hash.BloomFilter;
+import com.google.common.hash.Funnels;
 import com.mutiplethread.demo.bean.Person;
 import com.mutiplethread.demo.thread.ExtrualThread;
 import org.junit.jupiter.api.Test;
@@ -48,67 +50,88 @@ public class ThreadTest {
     }
 
     @Test
-    public void hashSetTest(){
-        Set<Person> personSet = new HashSet<Person>();
+    public void hashSetTest() {
 
-        Person person1 = new Person("jack",21);
-        Person person2 = new Person("tom",22);
+        Person person1 = new Person("jack", 21);
+        Person person2 = new Person("tom", 22);
 
         List<Person> personList = new ArrayList<Person>();
         personList.add(person1);
         personList.add(person2);
 
-        personSet.addAll(personList);
+        Set<Person> personSet = new HashSet<Person>(personList);
 
-        for(Person person : personSet){
-            System.out.println(person.getPersonName()+"   "+person.getPersonAge());
+        for (Person person : personSet) {
+            System.out.println(person.getPersonName() + "   " + person.getPersonAge());
         }
     }
 
     @Test
-    public void hashMapTest(){
-        Map<String,Person> map = new HashMap<String, Person>();
+    public void hashMapTest() {
+        Map<String, Person> map = new HashMap<String, Person>();
 
-        Person person1 = new Person("jack",21);
-        Person person2 = new Person("tom",22);
+        Person person1 = new Person("jack", 21);
+        Person person2 = new Person("tom", 22);
 
-        map.put("jack",person1);
-        map.put("tom",person2);
+        map.put("jack", person1);
+        map.put("tom", person2);
 
-        for(String key:map.keySet()){
+        for (String key : map.keySet()) {
             Person p = map.get(key);
-            System.out.println(p.getPersonName()+"  "+p.getPersonAge());
+            System.out.println(p.getPersonName() + "  " + p.getPersonAge());
         }
     }
 
     @Test
-    public void hashTableTest(){
+    public void hashTableTest() {
         Map<String, Person> map = new Hashtable<String, Person>();
-        Person person1 = new Person("jack",21);
-        Person person2 = new Person("tom",22);
+        Person person1 = new Person("jack", 21);
+        Person person2 = new Person("tom", 22);
 
-        map.put("jack",person1);
-        map.put("tom",person2);
+        map.put("jack", person1);
+        map.put("tom", person2);
 
-        for(String key:map.keySet()){
+        for (String key : map.keySet()) {
             Person p = map.get(key);
-            System.out.println(p.getPersonName()+"  "+p.getPersonAge());
+            System.out.println(p.getPersonName() + "  " + p.getPersonAge());
         }
     }
 
     @Test
-    public void currentHashMapTest(){
-        Map<String,Person> map = new ConcurrentHashMap<String, Person>();
+    public void currentHashMapTest() {
+        Map<String, Person> map = new ConcurrentHashMap<String, Person>();
 
-        Person person1 = new Person("jack",21);
-        Person person2 = new Person("tom",22);
+        Person person1 = new Person("jack", 21);
+        Person person2 = new Person("tom", 22);
 
-        map.put("jack",person1);
-        map.put("tom",person2);
+        map.put("jack", person1);
+        map.put("tom", person2);
 
-        for(String key:map.keySet()){
+        for (String key : map.keySet()) {
             Person p = map.get(key);
-            System.out.println(p.getPersonName()+"  "+p.getPersonAge());
+            System.out.println(p.getPersonName() + "  " + p.getPersonAge());
         }
+    }
+
+    private static int size = 1000000;
+    private static BloomFilter<Integer> bloomFilter = BloomFilter.create(Funnels.integerFunnel(), size,0.01);
+
+    /**
+     * bloom过滤器测试
+     */
+    @Test
+    public void bloomFilterTest() {
+        for (int i = 0; i < size; i++) {
+            bloomFilter.put(i);
+        }
+
+        List<Integer> list = new ArrayList<Integer>(1000);
+        //故意取10000个不在过滤器里的值，看看有多少个会被认为在过滤器里
+        for (int i = size + 10000; i < size + 20000; i++) {
+            if (bloomFilter.mightContain(i)) {
+                list.add(i);
+            }
+        }
+        System.out.println("误判的数量：" + list.size());
     }
 }
