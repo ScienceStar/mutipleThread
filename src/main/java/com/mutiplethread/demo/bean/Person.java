@@ -22,6 +22,14 @@ public class Person implements Serializable {
         this.personAge = personAge;
     }
 
+    public void eat(){
+        System.out.println(personName+"正在吃饭!");
+    }
+
+    public void eat(String vegtable,Integer weight){
+        System.out.println(personName+"正在吃饭,搭配:"+vegtable+",用量:"+weight+"g");
+    }
+
     public String getPersonName() {
         return personName;
     }

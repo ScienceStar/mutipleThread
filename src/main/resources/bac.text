@@ -1,0 +1,83 @@
+show tables ;
+
+select * from VIEWS;
+
+docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name master --restart always -v /tmp/mysql_data/master:/Users/lxc/Public/mysql -v /tmp/mysql_data/master_cnf:/etc/mysql/conf.d -p 3306:3306 mysql:5.7;
+
+docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name slave --restart always -v /tmp/mysql_data/slave:/Users/lxc/Public/mysql -v /tmp/mysql_data/slave_cnf:/etc/mysql/conf.d -p 3307:3306 mysql:5.7;
+
+
+CHANGE MASTER TO MASTER_HOST='192.168.1.104',Master_Port=3306,MASTER_USER='science',MASTER_PASSWORD='science',MASTER_LOG_FILE='mysql-bin.000008',MASTER_LOG_POS=0;
+
+docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name master --restart always -v /tmp/mysql_data/master:/Users/lxc/Public/mysql -v /tmp/mysql_data/master_cnf:/etc/mysql/conf.d -p 3306:3306 mysql:5.7
+
+docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name slave --restart always -v /tmp/mysql_data/slave:/Users/lxc/Public/mysql -v /tmp/mysql_data/slave_cnf:/etc/mysql/conf.d -p 3307:3306 mysql:5.7
+
+docker run -d -p 3309:3306 -e MYSQL_ROOT_PASSWORD=123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=123456 -e CLUSTER_JOIN=node1 -v v2:/Users/lxc/Public/mysql --name=node2 --net=esnet --ip 172.18.0.3 pxc
+base=https://github.com/docker/machine/releases/download/v0.14.0 && curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/usr/local/bin/docker-machine && chmod +x /usr/local/bin/docker-machine
+
+
+select * from HadLoop.Person;
+
+select * from person.user;
+
+docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=123456 -v v1:/Users/lxc/Public/mysql --name=node1 --network=net1 --ip 172.18.0.2 pxc
+docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=123456 -e CLUSTER_JOIN=node1 -v v2:/Users/lxc/Public/mysql --name=node2 --net=net1 --ip 172.18.0.3 pxc
+docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=123456 -e CLUSTER_JOIN=node1 -v v3:/Users/lxc/Public/mysql --name=node3 --net=net1 --ip 172.18.0.4 pxc
+docker run -d -p 3309:3306 -e MYSQL_ROOT_PASSWORD=123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=123456 -e CLUSTER_JOIN=node1 -v v4:/Users/lxc/Public/mysql --name=node4 --net=net1 --ip 172.18.0.5 pxc
+docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=123456 -e CLUSTER_JOIN=node1 -v v5:/Users/lxc/Public/mysql --name=node5 --net=net1 --ip 172.18.0.6 pxc
+
+
+select * from Hadloop_Databases.orderTab;
+
+select * from Hadloop_Databases.orderTab;
+
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('瑞士背包',21,12,now(),1);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('面包',51,12,now(),2);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('苹果',21,12,now(),1);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('香蕉',21,12,now(),2);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('栗子',21,12,now(),1);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('菠萝',21,12,now(),2);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('水蜜桃',21,12,now(),1);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('柠檬',21,12,now(),1);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('草莓',31,12,now(),3);
+insert into Hadloop_Databases.orderTab(order_name, order_price, customer_id, createDate, status) values ('西瓜',41,12,now(),1);
+
+
+show create table URL;
+
+select * from Hadloop_Databases.orderTab;
+
+alter table Hadloop_Databases.orderTab change order_name order_name varchar(50) character utf8;
+drop table URL;
+create table URLTAB
+(
+  id int unsigned NOT NULL auto_increment,
+  url varchar (255) NOT NULL ,
+  url_crc int unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY(id),
+  KEY (url_crc)
+)engine = InnoDB default charset utf8;
+
+select * from URLTAB;
+
+create trigger url_hash_crc_ins
+before insert on URLTAB
+FOR EACH ROW
+BEGIN
+SET NEW.url_crc =crc32(NEW.url);
+END ;
+
+create trigger url_hash_crc_upd
+before update on URLTAB
+FOR EACH ROW
+BEGIN
+SET NEW.url_crc =crc32(NEW.url);
+END ;
+
+select * from URLTAB;
+insert into URLTAB(url) values('http://www.baidu.com');
+insert into URLTAB(url) values ('http://');
+
+update URLTAB T set T.url='http://www.360.com' where T.id='3';
+explain select * from URLTAB;

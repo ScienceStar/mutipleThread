@@ -6,12 +6,8 @@ import com.mutiplethread.demo.bean.Person;
 import com.mutiplethread.demo.thread.ExtrualThread;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @ClassName ThreadTest
@@ -114,7 +110,7 @@ public class ThreadTest {
     }
 
     private static int size = 1000000;
-    private static BloomFilter<Integer> bloomFilter = BloomFilter.create(Funnels.integerFunnel(), size,0.01);
+    private static BloomFilter<Integer> bloomFilter = BloomFilter.create(Funnels.integerFunnel(), size, 0.01);
 
     /**
      * bloom过滤器测试
@@ -133,5 +129,41 @@ public class ThreadTest {
             }
         }
         System.out.println("误判的数量：" + list.size());
+    }
+
+    @Test
+    public void runnableThread() {
+        MyRunnabale runnabale = new MyRunnabale();
+        Thread t1 = new Thread(runnabale, "线程1");
+        Thread t2 = new Thread(runnabale, "线程2");
+        Thread t3 = new Thread(runnabale, "线程3");
+
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+
+    @Test
+    public void cacheThreadTest(){
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for(int i=0;i<10;i++){
+            executorService.submit(new MyRunnabale());
+        }
+        executorService.shutdown();
+    }
+}
+
+class MyRunnabale implements Runnable {
+    private int ticket = 10;
+
+    @Override
+    public void run() {
+        synchronized (this) {
+            for (int i = 0; i < 20; i++) {
+                if (this.ticket > 0) {
+                    System.out.println(Thread.currentThread().getName() + "买票:ticket" + this.ticket--);
+                }
+            }
+        }
     }
 }

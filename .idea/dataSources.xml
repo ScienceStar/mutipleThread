@@ -6,7 +6,7 @@
       <synchronize>true</synchronize>
       <remarks>master</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://47.106.87.72:3307/mysql</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/mysql</jdbc-url>
     </data-source>
     <data-source source="LOCAL" name="MyCat" uuid="2a3fa8c6-1e50-4e23-a2a5-9ce80038f9ac">
       <driver-ref>mysql</driver-ref>
@@ -15,11 +15,29 @@
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://47.106.87.72:8066/TESTDB?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="slave1" uuid="a277da63-3a56-42db-9674-790bbe6c5d36">
+    <data-source source="LOCAL" name="slave1" uuid="5c9654b1-4e16-4a7d-9fd4-bb2e60864b5b">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3307/mysql</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="slave2" uuid="856537dd-3461-42e7-b71d-f22d2f2e1598">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://47.106.87.72:3308/mysql</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3308</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="slave3" uuid="d3d30b57-8b5e-4b66-9c39-8d1b0dbffaa6">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3309/mysql</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="slave4" uuid="fd8071ce-6fa4-4043-a10d-8eaba60b2898">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3310/mysql</jdbc-url>
     </data-source>
   </component>
 </project>

@@ -1,0 +1,14 @@
+@startuml
+客户端 -> DispatcherServlet:发送请求
+DispatcherServlet -> HanderMapping
+HanderMapping -> 系统配置或注解:处理器映射器找到具体的处理器(可以根据xml配置、注解进行查找)
+系统配置或注解 -> HanderMapping:返回要执行的Hander
+HanderMapping -> DispatcherServlet:生成处理器对象及处理器拦截器
+DispatcherServlet -> HanderAdapter
+HanderAdapter -> Handler:根据Handler规则执行不同类型的Handler
+Handler -> HanderAdapter:返回一个ModelAndView
+HanderAdapter -> DispatcherServlet:将ModelAndView返回给中央控制器
+DispatcherServlet -> ViewResolver:请求视图解析器
+ViewResolver -> DispatcherServlet:将逻辑视图解析成真正的视图
+DispatcherServlet -> 客户端:DispatcherServlet响应用户
+@enduml
