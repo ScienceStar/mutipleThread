@@ -1,8 +1,14 @@
 package com.mutiplethread.demo;
 
+import com.mutiplethread.demo.bean.Person;
 import com.mutiplethread.demo.service.MyService;
 import com.mutiplethread.demo.thread.MyThread;
+import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -34,5 +40,30 @@ public class TestLock {
         a3.start();
         a4.start();
         a5.start();
+
+        new Person("jack", 21).eat();
+        new Person("tom", 33).eat("菠菜", 21);
+    }
+
+    @Test
+    public void cacluateChar() {
+        String str = "ladksksdfdswelslfds";
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            if (map.containsKey(str.charAt(i))) {
+                map.put(str.charAt(i), map.get(str.charAt(i)) + 1);
+            } else {
+                map.put(str.charAt(i), 1);
+            }
+        }
+
+        Set<Map.Entry<Character, Integer>> entrySet = map.entrySet();
+        Iterator<Map.Entry<Character, Integer>> iterator = entrySet.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Character, Integer> next = iterator.next();
+            System.out.println(next.getKey() + " " + next.getValue());
+        }
     }
 }
