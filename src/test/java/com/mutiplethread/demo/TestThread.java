@@ -9,7 +9,7 @@ package com.mutiplethread.demo;
  **/
 public class TestThread {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int count =0;
         Aobing aobing = new Aobing();
         aobing.start();
@@ -17,6 +17,7 @@ public class TestThread {
             synchronized (aobing){
                 if(aobing.isFlag()){
                     System.out.println("Count 计数:"+count++);
+                    Thread.sleep(50000);
                 }
             }
         }
@@ -32,7 +33,7 @@ class Aobing extends Thread{
     @Override
     public void run() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -66,4 +66,11 @@ public class TestLock {
             System.out.println(next.getKey() + " " + next.getValue());
         }
     }
+
+    @Test
+    public void classLoadTest() throws ClassNotFoundException {
+        ClassLoader classLoader = Person.class.getClassLoader();
+        System.out.println(classLoader);
+        classLoader.loadClass("com.mutiplethread.demo.bean.Person");
+    }
 }

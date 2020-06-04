@@ -14,6 +14,9 @@ public class Person implements Serializable {
     private String personName;
     private Integer personAge;
 
+    static {
+        System.out.println("静态初始化代码块执行!");
+    }
     public Person() {
     }
 

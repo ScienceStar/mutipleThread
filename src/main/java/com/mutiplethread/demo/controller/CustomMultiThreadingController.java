@@ -1,5 +1,6 @@
 package com.mutiplethread.demo.controller;
 
+import com.mutiplethread.demo.bean.Person;
 import com.mutiplethread.demo.service.CustomMultiThreadingService;
 import com.mutiplethread.demo.service.CustomMultipleThreadingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class CustomMultiThreadingController {
             customMultiThreadingService.executeAysncTask1(i);
             customMultiThreadingService.executeAsyncTask2(i);
             customMultiThreadingService.executeAsyncTask2(i+1);
+            new Person().eat();
         }
         return "success";
     }
