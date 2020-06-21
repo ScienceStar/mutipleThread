@@ -102,7 +102,6 @@ public class ThreadTest {
 
         map.put("jack", person1);
         map.put("tom", person2);
-
         for (String key : map.keySet()) {
             Person p = map.get(key);
             System.out.println(p.getPersonName() + "  " + p.getPersonAge());
