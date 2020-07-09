@@ -5,10 +5,7 @@ import com.mutiplethread.demo.service.MyService;
 import com.mutiplethread.demo.thread.MyThread;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -49,6 +46,12 @@ public class TestLock {
     public void cacluateChar() {
         String str = "ladksksdfdswelslfds";
 
+        List<String> stringList = Arrays.asList(str.split(""));
+
+        int n =0;
+        for(String s : stringList){
+            System.out.println(s+"---->"+n++);
+        }
         HashMap<Character, Integer> map = new HashMap<>();
 
         for (int i = 0; i < str.length(); i++) {
