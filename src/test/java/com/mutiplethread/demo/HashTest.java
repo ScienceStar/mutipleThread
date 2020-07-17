@@ -47,6 +47,7 @@ public class HashTest {
         map2.put(key1,value);
         System.out.println("key1.equals(key2):"+key1.equals(key2));
         System.out.println("map2.get(key1):"+map2.get(key1).getHashCode());
-        System.out.println("map2.get(key2):"+map2.get(key2).getHashCode()==null?"Null":map2.get("key2").getHashCode());
+
+        System.out.println("map2.get(key2):"+map2.get(key2)==null?"Null":map2.get(key2).getHashCode());
     }
 }
