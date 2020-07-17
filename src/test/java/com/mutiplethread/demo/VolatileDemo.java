@@ -43,12 +43,9 @@ public class VolatileDemo {
         MyData myData = new MyData();
         //开启20个线程 i++操作
         for (int i = 0; i < 20; i++) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (int j = 0; j < 1000; j++) {
-                        myData.addPlus();
-                    }
+            new Thread(() -> {
+                for (int j = 0; j < 1000; j++) {
+                    myData.addPlus();
                 }
             }).start();
         }
