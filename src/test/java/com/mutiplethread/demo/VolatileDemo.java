@@ -15,20 +15,17 @@ public class VolatileDemo {
     @Test
     public void volatileTest() {
         MyData myData = new MyData();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //线程加入
-                System.out.println(Thread.currentThread().getName() + "update value Thread join!");
-                try {
-                    //线程睡眠3秒钟
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                myData.setValue();
-                System.out.println(Thread.currentThread().getName() + "update value success!");
+        new Thread(() -> {
+            //线程加入
+            System.out.println(Thread.currentThread().getName() + "update value Thread join!");
+            try {
+                //线程睡眠3秒钟
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            myData.setValue();
+            System.out.println(Thread.currentThread().getName() + "update value success!");
         }, "update Thread").start();
 
         while (myData.value == 0) {
