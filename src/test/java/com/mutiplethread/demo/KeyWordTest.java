@@ -14,7 +14,7 @@ import java.util.List;
  * @Date 2020/7/17 16:48
  * @Version V1.0
  **/
-public class KeyWordTest {
+public class KeyWordTest{
 
     @Test
     public void volatileCountAdd() {
